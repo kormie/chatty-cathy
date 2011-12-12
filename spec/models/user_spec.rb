@@ -7,6 +7,153 @@ describe User do
     @user = User.new(@graph, @uid)
   end
   
+  describe "feed" do
+    before do
+      @feed = [
+        {
+          "id" => "100000359811554_189592254396100",
+          "from" => {
+            "name" => "David Kormushoff",
+            "id" => "100000359811554"
+          },
+          "story" => "\"is that kalikow?\" on Molly Chen's photo.",
+          "story_tags" => {
+            "22" => [
+              {
+                "id" => 2418169,
+                "name" => "Molly Chen",
+                "offset" => 22,
+                "length" => 10
+              }
+            ]
+          },
+          "type" => "status",
+          "application" => {
+            "name" => "Photos",
+            "id" => "2305272732"
+          },
+          "created_time" => "2011-02-16T14:11:51+0000",
+          "updated_time" => "2011-02-16T14:11:51+0000",
+          "comments" => {
+            "count" => 0
+          }
+        },
+        {
+          "id" => "100000359811554_177257398985019",
+          "from" => {
+            "name" => "David Kormushoff",
+            "id" => "100000359811554"
+          },
+          "message" => "Heard at a programming meetup last night while jotting a note:\n\"You use paper???\"",
+          "actions" => [
+            {
+              "name" => "Comment",
+              "link" => "https://www.facebook.com/100000359811554/posts/177257398985019"
+            },
+            {
+              "name" => "Like",
+              "link" => "https://www.facebook.com/100000359811554/posts/177257398985019"
+            }
+          ],
+          "privacy" => {
+            "description" => "Public",
+            "value" => "EVERYONE"
+          },
+          "type" => "status",
+          "created_time" => "2011-02-11T15:43:05+0000",
+          "updated_time" => "2011-02-11T16:49:32+0000",
+          "comments" => {
+            "data" => [
+              {
+                "id" => "100000359811554_177257398985019_2226759",
+                "from" => {
+                  "name" => "Danny Gornetzki",
+                  "id" => "2405339"
+                },
+                "message" => "man, the computer geek on computer geek violence needs to stop.",
+                "created_time" => "2011-02-11T15:53:31+0000"
+              },
+              {
+                "id" => "100000359811554_177257398985019_2226759",
+                "from" => {
+                  "name" => "Danny Gornetzki",
+                  "id" => "2405339"
+                },
+                "message" => "man, the computer geek on computer geek violence needs to stop.",
+                "created_time" => "2011-02-11T15:53:31+0000"
+              },
+              {
+                "id" => "100000359811554_177257398985019_2227152",
+                "from" => {
+                  "name" => "David Kormushoff",
+                  "id" => "100000359811554"
+                },
+                "message" => "It's getting bad",
+                "created_time" => "2011-02-11T16:49:32+0000"
+              }
+            ],
+            "count" => 2
+          }
+        }
+      ]
+      @post_comments = [
+        {
+          "id" => "100000359811554_177257398985019_2226759",
+          "from" => {
+            "name" => "Danny Gornetzki",
+            "id" => "2405339"
+          },
+          "message" => "man, the computer geek on computer geek violence needs to stop.",
+          "created_time" => "2011-02-11T15:53:31+0000"
+        },
+        {
+          "id" => "100000359811554_177257398985019_2226759",
+          "from" => {
+            "name" => "Danny Gornetzki",
+            "id" => "2405339"
+          },
+          "message" => "man, the computer geek on computer geek violence needs to stop.",
+          "created_time" => "2011-02-11T15:53:31+0000"
+        },
+        {
+          "id" => "100000359811554_177257398985019_2227152",
+          "from" => {
+            "name" => "David Kormushoff",
+            "id" => "100000359811554"
+          },
+          "message" => "It's getting bad",
+          "created_time" => "2011-02-11T16:49:32+0000"
+        }
+      ]
+      @graph.should_receive(:get_connections).with(@uid, 'feed').once.and_return(@feed)
+    end
+    it "gets the user's feed" do
+      @user.feed.should == @feed
+    end
+    
+    describe "comments" do
+      it "only returns posts with comments" do
+        @user.wall_comments.should == @post_comments
+      end
+    end
+    
+    describe "friends with comments" do
+      it "returns the correct friends and count" do
+        @friends_with_comments_hash = [
+            {
+              name: 'Danny Gornetzki',
+              count: 2
+            },
+            {
+              name: 'David Kormushoff',
+              count: 1
+            }
+          ]
+        @user.friends_with_comments.should == @friends_with_comments_hash
+      end
+    end
+  end
+  
   describe "friends" do
     before do
       @friends = [
