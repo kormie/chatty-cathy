@@ -2,7 +2,7 @@
   .sidebar
     %h3 Top Commenters
     - @friend.sorted_friends_with_comments.each do |commenter|
-      %p= commenter[:name] + " made " + commenter[:count].to_s + " comments"
+      %p= commenter[:name] + " made " + pluralize(commenter[:count].to_s, 'comment')
 
     = link_to "Back", :back
 
