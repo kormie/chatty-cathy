@@ -96,45 +96,10 @@ describe User do
           }
         }
       ]
-      @post_comments = [
-        {
-          "id" => "100000359811554_177257398985019_2226759",
-          "from" => {
-            "name" => "Danny Gornetzki",
-            "id" => "2405339"
-          },
-          "message" => "man, the computer geek on computer geek violence needs to stop.",
-          "created_time" => "2011-02-11T15:53:31+0000"
-        },
-        {
-          "id" => "100000359811554_177257398985019_2226759",
-          "from" => {
-            "name" => "Danny Gornetzki",
-            "id" => "2405339"
-          },
-          "message" => "man, the computer geek on computer geek violence needs to stop.",
-          "created_time" => "2011-02-11T15:53:31+0000"
-        },
-        {
-          "id" => "100000359811554_177257398985019_2227152",
-          "from" => {
-            "name" => "David Kormushoff",
-            "id" => "100000359811554"
-          },
-          "message" => "It's getting bad",
-          "created_time" => "2011-02-11T16:49:32+0000"
-        }
-      ]
       @graph.should_receive(:get_connections).with(@uid, 'feed', {limit: 100}).once.and_return(@feed)
     end
     it "gets the user's feed" do
       @user.feed.should == @feed
-    end
-    
-    describe "comments" do
-      it "only returns posts with comments" do
-        @user.wall_comments.should == @post_comments
-      end
     end
     
     describe "friends with comments" do

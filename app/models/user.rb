@@ -21,12 +21,6 @@ class User
   def feed
     @feed ||= graph.get_connections(uid, 'feed', {limit: 100})
   end
-  
-  def wall_comments
-    feed.collect do |post|
-      post['comments']['data'] if post['comments']['count'] > 0
-    end.flatten.compact
-  end
 
   def sorted_friends_with_comments
     friends_with_comments.sort_by{|commenter| commenter[:count]}.reverse
@@ -39,6 +33,12 @@ class User
   end
 
 private
+
+  def wall_comments
+    feed.collect do |post|
+      post['comments']['data'] if post['comments']['count'] > 0
+    end.flatten.compact
+  end
 
   def comments_by_user
     wall_comments.group_by{|comment| comment['from']['name']}
