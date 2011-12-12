@@ -149,7 +149,7 @@ describe User do
               count: 1
             }
           ]
-        @user.friends_with_comments.should == @friends_with_comments_hash
+        @user.sorted_friends_with_comments.should == @friends_with_comments_hash
       end
     end
   end

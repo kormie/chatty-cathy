@@ -27,10 +27,20 @@ class User
       post['comments']['data'] if post['comments']['count'] > 0
     end.flatten.compact
   end
+
+  def sorted_friends_with_comments
+    friends_with_comments.sort_by{|commenter| commenter[:count]}.reverse
+  end
+
+private
+
+  def comments_by_user
+    wall_comments.group_by{|comment| comment['from']['name']}
+  end
   
   def friends_with_comments
-    @commenter_name_and_frequency ||= wall_comments.group_by{|comment| comment['from']['name']}.collect do |comment|
+    @commenter_name_and_frequency ||= comments_by_user.collect do |comment|
       {name: comment[0], count: comment[1].size}
-    end.sort_by{|commenter| commenter[:frequency]}
+    end
   end
 end
