@@ -1,0 +1,9 @@
+development:
+  app_id: 285789424789788
+  secret_key: 80e679383fd09850b7f0db23e85504c7
+test:
+  app_id: REPLACE WITH YOUR APP ID
+  secret_key: REPLACE WITH YOUR SECRET KEY
+production:
+  app_id: 172610392837296
+  secret_key: 0c394784bac45d2f1a51a0a7cd1e9d14
