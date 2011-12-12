@@ -9,6 +9,10 @@ class FacebookController < ApplicationController
     @likes_by_category = current_user.likes_by_category
     @friends = current_user.friends
   end
+  
+  def show
+    @friend = User.new(@graph, params[:id])
+  end
 
   def login
   end

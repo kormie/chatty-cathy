@@ -49,6 +49,30 @@ describe FacebookController do
       end
     end
   end
+  
+  describe "show with GET" do
+    before do
+      @user = User.new(mock('graph'), 42)
+      @oauth = mock('oauth')
+      @graph = mock('graph')
+      user_info = {'access_token' => '1234567890', 'uid' => 42}
+      Koala::Facebook::OAuth.should_receive(:new).and_return(@oauth)
+      @oauth.should_receive(:get_user_info_from_cookie).and_return(user_info)
+      @friend = User.new(@graph, 2405339)
+      
+      get :show, id: 2405339
+    end
+    
+    it "is successful" do
+      response.should be_success
+    end
+    
+    it "assigns the friend" do
+      assigns[:friend].uid.should == @friend.uid
+    end
+
+    
+  end
 
   describe 'login with GET' do
     before do
