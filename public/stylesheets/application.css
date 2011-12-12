@@ -3,8 +3,9 @@
   padding:15px;
 }
 
-#header h1 {
-
+.highlight {
+  border: 1px dashed brown;
+  padding:5px;
 }
 
 .login_button {

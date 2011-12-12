@@ -1,11 +1,14 @@
-%h2 Listen in on:
-%ul
-  - @friends.each do |friend|
-    %li= link_to friend['name'], "/facebook/show/#{friend['id']}"
+.container-fluid
+  .sidebar
+    %h2 Listen in on:
+    %ul
+      - @friends.each do |friend|
+        %li= link_to friend['name'], "/facebook/show/#{friend['id']}"
 
-%h2 Your "likes":
-- @likes_by_category.each do |category, likes|
-  %h3= category
-  %ul
-    - likes.each do |like|
-      %li= like['name']
+  .container
+    %h2 Your "likes":
+    - @likes_by_category.each do |category, likes|
+      %h3= category
+      %ul
+        - likes.each do |like|
+          %li= like['name']
