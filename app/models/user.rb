@@ -19,7 +19,7 @@ class User
   end
   
   def feed
-    @feed ||= graph.get_connections(uid, 'feed')
+    @feed ||= graph.get_connections(uid, 'feed', {limit: 100})
   end
   
   def wall_comments

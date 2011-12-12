@@ -125,7 +125,7 @@ describe User do
           "created_time" => "2011-02-11T16:49:32+0000"
         }
       ]
-      @graph.should_receive(:get_connections).with(@uid, 'feed').once.and_return(@feed)
+      @graph.should_receive(:get_connections).with(@uid, 'feed', {limit: 100}).once.and_return(@feed)
     end
     it "gets the user's feed" do
       @user.feed.should == @feed

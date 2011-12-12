@@ -1,0 +1,13 @@
+- @friend.sorted_friends_with_comments.each do |commenter|
+  %p= commenter[:name] + " made " + commenter[:count].to_s + " comments"
+
+%ol
+  - @friend.feed.each do |post|
+    %li
+      %p= raw post['story'] || post['message'] || post['name']
+      %p= "~ #{post['from']['name']}"
+    - if post['comments']['count'] > 0
+      %ul
+        - post['comments']['data'].each do |comment|
+          %li
+            %p= raw "\"#{comment['message']}\" ~#{comment['from']['name']}"
