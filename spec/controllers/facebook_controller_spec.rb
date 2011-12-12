@@ -17,7 +17,9 @@ describe FacebookController do
         Koala::Facebook::GraphAPI.should_receive(:new).with('1234567890').and_return(@graph)
         User.should_receive(:new).and_return(@user)
         @likes = mock('likes')
+        @friends = mock('friends')
         @user.should_receive(:likes_by_category).and_return(@likes)
+        @user.should_receive(:friends).and_return(@friends)
 
         get :index
       end
@@ -28,6 +30,10 @@ describe FacebookController do
 
       it 'should assign likes' do
         assigns[:likes_by_category].should == @likes
+      end
+
+      it "assigns friends" do
+        assigns[:friends].should == @friends
       end
     end
 

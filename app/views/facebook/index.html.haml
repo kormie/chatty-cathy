@@ -1,3 +1,7 @@
+%h2 Listen in on:
+- @friends.each do |friend|
+  %p= friend['name']
+
 %h2 Your "likes":
 - @likes_by_category.each do |category, likes|
   %h3= category

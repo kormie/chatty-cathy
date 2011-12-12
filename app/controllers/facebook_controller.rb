@@ -7,6 +7,7 @@ class FacebookController < ApplicationController
   
   def index
     @likes_by_category = current_user.likes_by_category
+    @friends = current_user.friends
   end
 
   def login

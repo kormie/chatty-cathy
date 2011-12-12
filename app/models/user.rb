@@ -13,4 +13,8 @@ class User
   def likes_by_category
     @likes_by_category ||= likes.sort_by {|l| l['name']}.group_by {|l| l['category']}.sort
   end
+  
+  def friends
+    @friends ||= graph.get_connections(uid, 'friends')
+  end
 end
