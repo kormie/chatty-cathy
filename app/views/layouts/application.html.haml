@@ -1,15 +1,16 @@
 !!! 5
 %html
   %head
-    %title Wildfire Programming Challenge
+    %title Chatty Cathy | Um... Excuse Me?
+    = stylesheet_link_tag 'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css'
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'jquery'
     = csrf_meta_tag
 
-  %body
+  %body.container
     #header
-      = facebook_login_button('large')
-      %h1 WildFire Programming Challenge
+      %span.login_button= facebook_login_button('large')
+      %h1 Chatty Cathy
     #content
       #fb-root
       = yield
