@@ -1,7 +1,10 @@
 .container-fluid
   .sidebar
+    %h3 Top Commenters
     - @friend.sorted_friends_with_comments.each do |commenter|
       %p= commenter[:name] + " made " + commenter[:count].to_s + " comments"
+
+    = link_to "Back", :back
 
   .container
     %h3 Posts
