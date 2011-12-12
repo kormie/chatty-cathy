@@ -31,6 +31,12 @@ class User
   def sorted_friends_with_comments
     friends_with_comments.sort_by{|commenter| commenter[:count]}.reverse
   end
+  
+  def friends_in_json
+    friends.collect do |friend|
+      {label: friend['name'], id: friend['id']}
+    end.to_json
+  end
 
 private
 

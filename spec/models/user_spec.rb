@@ -183,6 +183,38 @@ describe User do
     it 'retrieves the likes via the graph api' do
       @user.friends.should == @friends
     end
+    
+    describe "friend_list" do
+      before do
+        friends = [
+          {
+            label: "Danny Gornetzki",
+            id: "2405339"
+          },
+          {
+            label: "Adam Eisenstein",
+            id: "2405857"
+          },
+          {
+            label: "David Schiff",
+            id: "2405974"
+          },
+          {
+            label: "Ryan McIntosh",
+            id: "2406480"
+          },
+          {
+            label: "Andrew Stern",
+            id: "2406566"
+          }
+        ]
+        
+        @json_friends = friends.to_json
+      end
+      it "returns only the friend's name" do
+        @user.friends_in_json.should == @json_friends
+      end
+    end
 
     it 'should memoize the result after the first call' do
       friends1 = @user.friends

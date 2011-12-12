@@ -1,7 +1,11 @@
 .container-fluid
   .sidebar
     %h2 Listen in on:
-    %ul
+    .searchResults
+      = text_field_tag 'search', nil, :placeholder => 'Search for a friend...', id: "friendSearchBox"
+    %a.show_friends_list
+      Toggle your friend list
+    %ul.friend_list
       - @friends.each do |friend|
         %li= link_to friend['name'], "/facebook/show/#{friend['id']}"
 
@@ -12,3 +16,19 @@
       %ul
         - likes.each do |like|
           %li= like['name']
+
+:javascript
+  jQuery(function() {
+    $('#friendSearchBox').autocomplete({
+      source: #{@user.friends_in_json},
+      select: function(event, ui) {
+        $(".searchResults").append("<a href='facebook/show/" + ui.item.id + "'>Check out " + ui.item.label+ "</a>")
+        return false;
+      }
+    });
+    $('.friend_list').hide();
+    $('.show_friends_list').click(function(e){
+      e.preventDefault;
+      $('.friend_list').slideToggle('slow');
+    });
+  });
